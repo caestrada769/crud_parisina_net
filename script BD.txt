@@ -1,0 +1,79 @@
+CREATE DATABASE parisinaNet
+
+USE parisinaNet
+
+---Isaac
+CREATE TABLE usuarios (
+	id_usuario INT IDENTITY(1,1) NOT NULL,
+	id_rol INT,
+	correo VARCHAR (50) NOT NULL,
+	estado_usuario BIT DEFAULT(1),	
+	CONSTRAINT PK_usuario PRIMARY KEY (id_usuario),
+	CONSTRAINT UQ_correo UNIQUE (correo),
+	CONSTRAINT CHK_correo CHECK (correo LIKE '%[a-zA-Z0-9_]@%.com' OR correo LIKE '%[a-zA-Z0-9_]@%.org' OR correo LIKE '%[a-zA-Z0-9_]@%.edu.co'),
+);
+
+---Andrea
+CREATE TABLE empleados (
+	id_empleado INT IDENTITY(1,1) NOT NULL,
+	id_usuario INT,
+	id_area INT,
+	nombre_empleado VARCHAR (40) NOT NULL,
+	numero_documento VARCHAR(12)  NOT NULL,
+	estado_empleado BIT DEFAULT(1),
+	CONSTRAINT PK_empleado PRIMARY KEY (id_empleado),
+    CONSTRAINT UQ_numero_documento_empleado UNIQUE (numero_documento),
+	CONSTRAINT FK_empleadoUsuario  FOREIGN KEY (id_usuario)  REFERENCES usuarios (id_usuario),
+    CONSTRAINT CHK_nombre_empleado CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', nombre_empleado) = 0),
+    CONSTRAINT CHK_numero_documento_empleado CHECK (PATINDEX('%[^0-9]%', numero_documento) = 0 AND LEN(numero_documento) BETWEEN 8 AND 12)
+);
+
+---Alejandra
+CREATE TABLE clientes (
+	id_cliente INT IDENTITY(1,1) NOT NULL,
+	id_usuario INT,
+	nombre_cliente VARCHAR (40) NOT NULL,
+	tipo_documento VARCHAR (20) NOT NULL,
+	numero_documento VARCHAR(12) NOT NULL,
+	direccion VARCHAR (20) NOT NULL,
+	telefono VARCHAR (15) NOT NULL,
+	estado_clientes BIT DEFAULT(1),
+	CONSTRAINT PK_cliente PRIMARY KEY (id_cliente),
+	CONSTRAINT UQ_numero_documento UNIQUE(numero_documento),
+	CONSTRAINT CHK_numero_documento CHECK (PATINDEX('%[^0-9]%', numero_documento) = 0 AND LEN(numero_documento) BETWEEN 8 AND 12),
+	CONSTRAINT CHK_nombre_cliente CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', nombre_cliente) = 0),
+	CONSTRAINT CHK_tipo_documento CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', tipo_documento) = 0),
+	CONSTRAINT chk_telefono CHECK (telefono LIKE '+57[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' 
+	OR telefono LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'
+	OR telefono LIKE '[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),
+);
+
+---Carlos
+CREATE TABLE categorias (
+	id_categoria INT IDENTITY(1,1) NOT NULL,
+	nombre_categoria VARCHAR (40) NOT NULL,
+	descripcion_categoria VARCHAR (100) NOT NULL,
+	imagen_categoria VARBINARY(MAX),
+	estado_categoria BIT DEFAULT(1),
+	CONSTRAINT PK_categoria PRIMARY KEY (id_categoria),
+    CONSTRAINT UQ_categoria UNIQUE (nombre_categoria),
+    CONSTRAINT CHK_descripcion CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', descripcion_categoria) = 0),
+    CONSTRAINT CHK_nombre_categoria CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', nombre_categoria) = 0)
+    );
+
+---Cristian
+CREATE TABLE productos (
+	id_producto INT IDENTITY(1,1) NOT NULL,
+	id_categoria INT,
+	nombre_producto VARCHAR (40) NOT NULL,
+	descripcion_producto VARCHAR (100) NOT NULL,
+	precio_producto FLOAT NOT NULL,
+	imagen_producto VARBINARY(MAX),
+	estado_producto BIT DEFAULT (1),
+	CONSTRAINT PK_producto PRIMARY KEY (id_producto),
+    CONSTRAINT UQ_producto UNIQUE (nombre_producto),
+	CONSTRAINT FK_producto_categoria  FOREIGN KEY (id_categoria)  REFERENCES categorias (id_categoria),
+    CONSTRAINT CHK_nombre_producto CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', nombre_producto) = 0),
+	CONSTRAINT CHK_descripcion_producto CHECK (PATINDEX('%[^a-zA-ZñÑ ]%', descripcion_producto) = 0),
+	CONSTRAINT CHK_precio_producto CHECK (precio_producto > 0),
+);
