@@ -9,8 +9,44 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
       "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\icons\\detalle.png",
+      "PackagePath": "staticwebassets\\icons\\detalle.png"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\icons\\editar.png",
+      "PackagePath": "staticwebassets\\icons\\editar.png"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\icons\\eliminar.png",
+      "PackagePath": "staticwebassets\\icons\\eliminar.png"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 1.jpg",
+      "PackagePath": "staticwebassets\\img\\imagen 1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 2.jpg",
+      "PackagePath": "staticwebassets\\img\\imagen 2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 3.jpeg",
+      "PackagePath": "staticwebassets\\img\\imagen 3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 4.jpg",
+      "PackagePath": "staticwebassets\\img\\imagen 4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 5.jpg",
+      "PackagePath": "staticwebassets\\img\\imagen 5.jpg"
     },
     {
       "Id": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\parisina_logo.png",

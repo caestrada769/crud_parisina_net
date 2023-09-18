@@ -4,62 +4,78 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Productos</h1>
+    <hr style="color: #a48004" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescripcionProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagenProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagenProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.IdCategoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdProducto">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdProducto">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdProducto">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0">
+            <a asp-action="Create" class="btn btn-personalizado btn-sm">Crear Producto</a>
+        </p>
+
+        <form asp-controller="Productoes" asp-action="Index" class="m-0">
+            <p class="m-0">
+                Buscar: <input type="text" name="buscar" class="form-text" />
+                <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+            </p>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <!-- Enlazamos la columna a ordenar con el ViewData del controller -->
+                    <a asp-action="Index" asp-route-filtro="@ViewData["FiltroNombre"]" class="sortable-link">
+                        Nombre <i class="fa-solid fa-caret-down"></i>
+                    </a>
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-filtro="@ViewData["FiltroPrecio"]" class="sortable-link">
+                    Precio <i class="fa-solid fa-caret-down"></i>
+                    </a>
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecioProducto)
+                    </td>
+                    <td>
+                        @if (item.EstadoProducto == true)
+                        {
+                            <text>Activo</text>
+                        }
+                        else
+                        {
+                            <text>Inactivo</text>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdProducto"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdProducto"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdProducto"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

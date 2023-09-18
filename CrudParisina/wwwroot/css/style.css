@@ -1,0 +1,46 @@
+﻿body {
+    background-image: url("https://i.pinimg.com/originals/c1/37/65/c13765650f4e8e28d24cd1fda5047656.jpg");
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+}
+
+
+
+
+/* Personaliza el color del botón */
+.btn-personalizado {
+    background-color: #a48004; /* Cambia el color del boton */
+    border-color: #bf9c4a; /* Cambia el color del borde */
+    color: #fff; /* Cambia el color de texto */
+}
+
+/* Cambia el color del botón cuando se le hace hover */
+    .btn-personalizado:hover {
+        background-color: #bf9c4a;
+        border-color: #a48004;
+        color: #fff;
+    }
+
+/* Personaliza el color del botón */
+.btn-personalizado2 {
+    background-color: #fff; /* Cambia el color del boton */
+    border-color: #a48004; /* Cambia el color del borde */
+    color: #fff; /* Cambia el color de texto */
+}
+
+    /* Cambia el color del botón cuando se le hace hover */
+    .btn-personalizado2:hover {
+        background-color: #bf9c4a;
+        border-color: #a48004;
+        color: #fff;
+    }
+
+.sortable-link {
+    text-decoration: none; /* Eliminar subrayado */
+    color: inherit; /* Usar el color heredado (por defecto) */
+    cursor: pointer; /* Cambiar el cursor a una mano para indicar que es interactivo */
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.4); /* Fondo con una opacidad del 40% */
+}

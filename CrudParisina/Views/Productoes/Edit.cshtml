@@ -4,55 +4,64 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Editar</h1>
+    <h4>Producto</h4>
+    <hr style="color: #a48004" />
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdProducto" />
+                <div class="form-group">
+                    <label asp-for="IdCategoria" class="control-label">Categoría</label>
+                    <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
+                    <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NombreProducto" class="control-label">Nombre</label>
+                    <input asp-for="NombreProducto" class="form-control" />
+                    <span asp-validation-for="NombreProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DescripcionProducto" class="control-label">Descripción</label>
+                    <input asp-for="DescripcionProducto" class="form-control" />
+                    <span asp-validation-for="DescripcionProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrecioProducto" class="control-label">Precio</label>
+                    <input asp-for="PrecioProducto" class="form-control" />
+                    <span asp-validation-for="PrecioProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="ImagenProducto" class="control-label">Imagen</label>
+                    @if (Model.ImagenProducto != null && Model.ImagenProducto.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImagenProducto)" alt="Imagen del Producto" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                    }
+                </div>
+                <div class="form-group mb-3">
+                    <input asp-for="ImagenProducto" type="file" class="form-control" name="nuevaImagen" id="ImagenProducto" />
+                    <span asp-validation-for="ImagenProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="EstadoProducto" class="control-label">Estado</label>
+                    <select asp-for="EstadoProducto" class="form-control">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-3">Regresar</a>
+                    <input type="submit" value="Guardar" class="btn btn-personalizado btn-sm mb-3" />
+                </div>
+            </form>
 
-<h4>Producto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdProducto" />
-            <div class="form-group">
-                <label asp-for="IdCategoria" class="control-label"></label>
-                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
-                <span asp-validation-for="IdCategoria" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreProducto" class="control-label"></label>
-                <input asp-for="NombreProducto" class="form-control" />
-                <span asp-validation-for="NombreProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DescripcionProducto" class="control-label"></label>
-                <input asp-for="DescripcionProducto" class="form-control" />
-                <span asp-validation-for="DescripcionProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioProducto" class="control-label"></label>
-                <input asp-for="PrecioProducto" class="form-control" />
-                <span asp-validation-for="PrecioProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagenProducto" class="control-label"></label>
-                <input asp-for="ImagenProducto" class="form-control" />
-                <span asp-validation-for="ImagenProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoProducto" class="control-label"></label>
-                <input asp-for="EstadoProducto" class="form-control" />
-                <span asp-validation-for="EstadoProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

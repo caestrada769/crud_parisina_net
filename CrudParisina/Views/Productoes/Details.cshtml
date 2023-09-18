@@ -4,51 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 40%; padding: 20px; background-color: white;">
+    <h1>Detalles</h1>
 
-<div>
-    <h4>Producto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DescripcionProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DescripcionProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagenProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImagenProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EstadoProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstadoProducto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCategoriaNavigation.IdCategoria)
-        </dd>
-    </dl>
+    <div>
+        <h4>Producto</h4>
+        <hr style="color: #a48004" />
+        <dl class="row">
+            <div>
+                <dd class="col-sm-12">
+                    @if (Model.ImagenProducto != null && Model.ImagenProducto.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImagenProducto)" alt="Imagen del Producto" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                    }
+                    @*<img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImagenProducto)" alt="Imagen del Producto" style="max-width: 200px; max-height: 200px;" />*@
+                </dd>
+            </div>
+            <dd class="col-sm-12">
+                <span style="font-weight: bold;">Nombre: </span> @Html.DisplayFor(model => model.NombreProducto)
+            </dd>
+
+            <dd class="col-sm-12">
+                <span style="font-weight: bold;">Descripción: </span> @Html.DisplayFor(model => model.DescripcionProducto)
+            </dd>
+            <dd class="col-sm-12">
+                <span style="font-weight: bold;">Precio: </span> @Html.DisplayFor(model => model.PrecioProducto)
+            </dd>
+            <dd class="col-sm-12">
+                <span style="font-weight: bold;">Estado: </span> @(Model.EstadoProducto == true ? "Activo" : "Inactivo")
+            </dd>
+            <dd class="col-sm-12">
+                <span style="font-weight: bold;">Categoría: </span> @Html.DisplayFor(model => model.IdCategoriaNavigation.NombreCategoria)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-3">Regresar</a>
+        <a asp-action="Edit" asp-route-id="@Model?.IdProducto" class="btn btn-personalizado btn-sm mb-3">Editar</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdProducto">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
