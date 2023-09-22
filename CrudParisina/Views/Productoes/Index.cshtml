@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CrudParisina.Models.Producto>
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<CrudParisina.Models.Producto>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,7 +16,7 @@
 
         <form asp-controller="Productoes" asp-action="Index" class="m-0">
             <p class="m-0">
-                Buscar: <input type="text" name="buscar" class="form-text" />
+                <input type="text" name="buscar" class="form-text" placeholder="Buscar" />
                 <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
             </p>
         </form>
@@ -34,7 +35,7 @@
                 </th>
                 <th>
                     <a asp-action="Index" asp-route-filtro="@ViewData["FiltroPrecio"]" class="sortable-link">
-                    Precio <i class="fa-solid fa-caret-down"></i>
+                        Precio <i class="fa-solid fa-caret-down"></i>
                     </a>
                 </th>
                 <th>
@@ -77,5 +78,10 @@
             }
         </tbody>
     </table>
+    <div class="pagination-container align-right">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtro = ViewData["FiltroNombre"] }))
+    </div>
 </div>
+
+
 

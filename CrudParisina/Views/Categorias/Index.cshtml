@@ -1,53 +1,78 @@
-﻿@model IEnumerable<CrudParisina.Models.Categoria>
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<CrudParisina.Models.Categoria>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Categorias</h1>
+    <hr style="color: #a48004" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescripcionCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagenCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoCategoria)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescripcionCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagenCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoCategoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCategoria">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCategoria">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCategoria">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0">
+            <a asp-action="Create" class="btn btn-personalizado btn-sm">Crear Categoria</a>
+        </p>
+
+        <form asp-controller="Categorias" asp-action="Index" class="m-0">
+            <p class="m-0">
+                <input type="text" name="buscar" class="form-text" placeholder="Buscar" />
+                <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+            </p>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <!-- Enlazamos la columna a ordenar con el ViewData del controller -->
+                    <a asp-action="Index" asp-route-filtro="@ViewData["FiltroNombre"]" class="sortable-link">
+                     Nombre <i class="fa-solid fa-caret-down"></i>
+                    </a>
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreCategoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionCategoria)
+                    </td>
+                    <td>
+                        @if (item.EstadoCategoria == true)
+                        {
+                            <text>Activo</text>
+                        }
+                        else
+                        {
+                            <text>Inactivo</text>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCategoria"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCategoria"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCategoria"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pagination-container align-right">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtro = ViewData["FiltroNombre"] }))
+    </div>
+</div>
+
+

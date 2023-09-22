@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CrudParisina.Models;
+using X.PagedList;
+
+
 
 namespace CrudParisina.Controllers
 {
@@ -19,12 +22,42 @@ namespace CrudParisina.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, string filtrar, int? page)
         {
-              return _context.Clientes != null ? 
-                          View(await _context.Clientes.ToListAsync()) :
-                          Problem("Entity set 'ParisinaNetContext.Clientes'  is null.");
+            var clientes = from Cliente in _context.Clientes select Cliente;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                clientes = clientes.Where(s => s.NombreCliente.Contains(buscar));
+            }
+
+            ViewData["FiltroNombre"] = string.IsNullOrEmpty(filtrar) ? "NombreDescendente" : "NombreAscendente";
+
+            switch (filtrar)
+            {
+                case "NombreDescendente":
+                    clientes = clientes.OrderByDescending(categoria => categoria.NombreCliente);
+                    break;
+                case "NombreAscendente":
+                    clientes = clientes.OrderBy(categoria => categoria.NombreCliente);
+                    break;
+                default:
+                    clientes = clientes.OrderBy(categoria => categoria.NombreCliente);
+                    break;
+            }
+
+            int pageSize = 3; // Tamaño de página
+            int pageNumber = (page ?? 1); // Número de página actual, predeterminado a 1 si no se proporciona
+
+            // Pagina los resultados y envía un objeto IPagedList a la vista
+            var pagedClientes = await clientes.ToPagedListAsync(pageNumber, pageSize);
+
+            ViewData["Buscar"] = buscar;
+            ViewData["Page"] = pageNumber;
+
+            return View(pagedClientes);
         }
+
 
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gs4Iq+fwl65CEYnrG+iMkGRGP9Hj2VeqoAIMmx7Rhl8=",
+  "Hash": "iJ37AK0ROEI5Khr+HcbkYxLYw0jiXppLk6cAtl/QOBg=",
   "Source": "CrudParisina",
   "BasePath": "_content/CrudParisina",
   "Mode": "Default",
@@ -236,6 +236,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\imagen 5.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\imagen 6.jpg",
+      "SourceId": "CrudParisina",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\",
+      "BasePath": "_content/CrudParisina",
+      "RelativePath": "img/imagen 6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\imagen 6.jpg"
     },
     {
       "Identity": "C:\\Users\\Cristian\\Documents\\Desarrollo .NET\\CrudParisina\\CrudParisina\\wwwroot\\img\\parisina_logo.png",

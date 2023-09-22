@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using CrudParisina;
 using CrudParisina.Models;
+using X.PagedList;
 
 namespace CrudParisina.Controllers
 {
@@ -19,11 +21,38 @@ namespace CrudParisina.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, string filtro, int? page)
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'ParisinaNetContext.Usuarios'  is null.");
+            var usuarios = from Usuario in _context.Usuarios select Usuario;
+            
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                usuarios = usuarios.Where(s => s.Correo!.Contains(buscar));
+            }
+
+            ViewData["FiltroCorreo"] = String.IsNullOrEmpty(filtro) ? "CorreoDescendente" : "";
+            switch (filtro)
+            {
+                case "CorreoDescendente":
+                    usuarios = usuarios.OrderByDescending(usuario => usuario.Correo);
+                    break;
+                default:
+                    usuarios = usuarios.OrderBy(usuario => usuario.Correo);
+                    break;
+            }
+
+            int pageSize = 3; // Tamaño de página
+            int pageNumber = (page ?? 1); // Número de página actual, predeterminado a 1 si no se proporciona
+
+            // Pagina los resultados y envía un objeto IPagedList a la vista
+            var pagedUsuarios = await usuarios.ToPagedListAsync(pageNumber, pageSize);
+
+            ViewData["Buscar"] = buscar;
+            ViewData["Page"] = pageNumber;
+
+            //Retornamos la lista de productos encontrados
+            return View(pagedUsuarios);
         }
 
         // GET: Usuarios/Details/5

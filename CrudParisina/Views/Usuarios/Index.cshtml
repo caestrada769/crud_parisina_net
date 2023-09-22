@@ -1,25 +1,42 @@
-﻿@model IEnumerable<CrudParisina.Models.Usuario>
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<CrudParisina.Models.Usuario>
+
 
 @{
     ViewData["Title"] = "Index";
 }
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+<h1>Lista de Usuarios</h1>
+    <hr style="color: #a48004" />
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
+<div class="d-flex justify-content-between align-items-center">
+<p class="m-0">
+   <a asp-action="Create" class="btn btn-personalizado btn-sm">Crear usuario</a>
 </p>
+
+<form asp-controller="Usuarios" asp-action="Index" class="m-0">
+    <p class="m-0">
+        Buscar: <input type="text" name="buscar" value="@ViewData["FiltroActual"]" class="form-text" />
+        <input type="submit" value="buscar" class="btn btn-sm btn-dark" />
+        @*<a asp-action="Index" class="btn btn-outline-info">Lista completa</a>*@
+    </p>
+</form>
+    </div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdRol)
+                IdRol
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Correo)
+                <!--Enlazamos cada columna a ordenar con el view data del controlador-->
+                    <a asp-action="Index" asp-route-filtro="@ViewData["FiltroCorreo"]" class="sortable-link">
+                    Correo
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EstadoUsuario)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -34,14 +51,25 @@
                 @Html.DisplayFor(modelItem => item.Correo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EstadoUsuario)
+                @if (item.EstadoUsuario == true)
+                    {
+                     <text>Activo</text>
+                     }
+                     else
+                     {
+                     <text>Inactivo</text>
+                     }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdUsuario">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdUsuario">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdUsuario">Delete</a>
+                    <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdUsuario"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /></a>
+                    <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdUsuario"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a>
+                    <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdUsuario"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+    <div class="pagination-container align-right">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtro = ViewData["FiltroCorreo"] }))
+    </div>
+</div>

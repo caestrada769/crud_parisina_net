@@ -1,71 +1,73 @@
-﻿@model IEnumerable<CrudParisina.Models.Cliente>
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<CrudParisina.Models.Cliente>
+
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Clientes</h1>
+    <hr style="color: #a48004" />
+ <div class="d-flex justify-content-between align-items-center">
+    <p>
+            <a asp-action="Create" class="btn btn-personalizado btn-sm">Registrar Cliente</a>
+    </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <form asp-controller="Clientes" asp-action="Index">
+        <p>
+            <input type="text" name="buscar" class="form-text"  placeholder="Buscar" />
+            <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+        </p>
+
+    </form>
+  </div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdUsuario)
+               Nombre Cliente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NombreCliente)
+                Nro. Documento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoDocumento)
+               Estado
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroDocumento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoClientes)
-            </th>
-            <th></th>
+            <th class="text-center">Aciones</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUsuario)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.NombreCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoDocumento)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumeroDocumento)
             </td>
+                    <td>
+                        @if (item.EstadoClientes == true)
+                        {
+                            <text>Activo</text>
+                        }
+                        else
+                        {
+                            <text>Inactivo</text>
+                        }
             <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoClientes)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCliente">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCliente">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCliente">Delete</a>
+                        <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id=" @item.IdCliente"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /> </a> 
+                        <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCliente"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a> 
+                        <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCliente"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+    <div class="pagination-container align-right">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtrar = ViewData["FiltroNombre"] }))
+    </div>
+</div>
+
+

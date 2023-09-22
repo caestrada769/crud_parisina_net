@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CrudParisina.Models;
+using X.PagedList;
 
 namespace CrudParisina.Controllers
 {
@@ -19,10 +20,39 @@ namespace CrudParisina.Controllers
         }
 
         // GET: Empleadoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, string filtro, int? page)
         {
-            var parisinaNetContext = _context.Empleados.Include(e => e.IdUsuarioNavigation);
-            return View(await parisinaNetContext.ToListAsync());
+            var empleados = from Empleado in _context.Empleados select Empleado;
+            
+
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                empleados = empleados.Where(s => s.NombreEmpleado!.Contains(buscar));
+            }
+            ViewData["FiltroNombre"] = String.IsNullOrEmpty(filtro) ? "NombreDescendente" : "";
+            
+            switch (filtro)
+            {
+                case "NombreDescendente":
+                    empleados = empleados.OrderByDescending(empleado => empleado.NombreEmpleado);
+                    break;
+                
+                default:
+                    empleados = empleados.OrderBy(empleado => empleado.NombreEmpleado);
+                    break;
+            }
+            int pageSize = 3; // Tamaño de página
+            int pageNumber = (page ?? 1); // Número de página actual, predeterminado a 1 si no se proporciona
+
+            // Pagina los resultados y envía un objeto IPagedList a la vista
+            var pagedEmpleados = await empleados.ToPagedListAsync(pageNumber, pageSize);
+
+            ViewData["Buscar"] = buscar;
+            ViewData["Page"] = pageNumber;
+
+            //Retornamos la lista de productos encontrados
+            return View(pagedEmpleados);
         }
 
         // GET: Empleadoes/Details/5

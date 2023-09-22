@@ -4,33 +4,37 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+<h1>Crear</h1>
 
 <h4>Usuario</h4>
-<hr />
-<div class="row">
+
+    <hr style="color: #a48004" />
+    <div class="row justify-content-center">
+        <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdRol" class="control-label"></label>
+                <label asp-for="IdRol" class="control-label">IdRol</label>
                 <input asp-for="IdRol" class="form-control" />
                 <span asp-validation-for="IdRol" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
+            <div class="form-group mb-3">
+                <label asp-for="Correo" class="control-label">Correo</label>
                 <input asp-for="Correo" class="form-control" />
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-3">Regresar</a>
+                        <input type="submit" value="Crear" class="btn btn-personalizado btn-sm mb-3" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+
+</div>
 </div>
 
 @section Scripts {

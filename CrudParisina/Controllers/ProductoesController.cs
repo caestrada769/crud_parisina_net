@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CrudParisina.Models;
+using X.PagedList;
 
 namespace CrudParisina.Controllers
 {
@@ -19,7 +20,7 @@ namespace CrudParisina.Controllers
         }
 
         // GET: Productoes
-        public async Task<IActionResult> Index(string buscar, string filtro)
+        public async Task<IActionResult> Index(string buscar, string filtro, int? page)
         {
             var productos = from Producto in _context.Productos select Producto;
             var productosConCategorias = _context.Productos.Include(p => p.IdCategoriaNavigation);
@@ -30,7 +31,7 @@ namespace CrudParisina.Controllers
                 productos = productos.Where(s => s.NombreProducto!.Contains(buscar));
             }
             ViewData["FiltroNombre"] = String.IsNullOrEmpty(filtro) ? "NombreDescendente" : "";
-            ViewData["FiltroPrecio"] = filtro == "PrecioAscendente" ? "PrecionDescendente" : "PrecioAscendente";
+            ViewData["FiltroPrecio"] = filtro == "PrecioAscendente" ? "PrecioDescendente" : "PrecioAscendente";
             switch (filtro)
             {
                 case "NombreDescendente":
@@ -39,15 +40,24 @@ namespace CrudParisina.Controllers
                 case "PrecioDescendente":
                     productos = productos.OrderByDescending(productos => productos.PrecioProducto);
                     break;
-                case "PrecionAscendente":
+                case "PrecioAscendente":
                     productos = productos.OrderBy(productos => productos.PrecioProducto);
                     break;
                 default:
                     productos = productos.OrderBy(producto => producto.NombreProducto);
                     break;
             }
+            int pageSize = 3; // Tamaño de página
+            int pageNumber = (page ?? 1); // Número de página actual, predeterminado a 1 si no se proporciona
+
+            // Pagina los resultados y envía un objeto IPagedList a la vista
+            var pagedProductos = await productos.ToPagedListAsync(pageNumber, pageSize);
+
+            ViewData["Buscar"] = buscar;
+            ViewData["Page"] = pageNumber;
+
             //Retornamos la lista de productos encontrados
-            return View(await productos.ToListAsync());
+            return View(pagedProductos);
         }
 
         // GET: Productoes/Details/5

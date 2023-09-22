@@ -1,0 +1,72 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<CrudParisina.Models.Cliente>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Clientes</h1>
+    <hr style="color: #a48004" />
+ <div class="d-flex justify-content-between align-items-center">
+    <p>
+            <a asp-action="Create" class="btn btn-personalizado btn-sm">Registrar Cliente</a>
+    </p>
+
+    <form asp-controller="Clientes" asp-action="Index">
+        <p>
+            <input type="text" name="buscar" class="form-text"  placeholder="Buscar" />
+            <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+        </p>
+
+    </form>
+  </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Nombre Cliente
+            </th>
+            <th>
+                Nro. Documento
+            </th>
+            <th>
+               Estado
+            </th>
+            <th class="text-center">Aciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroDocumento)
+            </td>
+                    <td>
+                        @if (item.EstadoClientes == true)
+                        {
+                            <text>Activo</text>
+                        }
+                        else
+                        {
+                            <text>Inactivo</text>
+                        }
+            <td>
+                        <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id=" @item.IdCliente"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /> </a> 
+                        <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCliente"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a> 
+                        <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdCliente"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+<div class="pagination-container align-right">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtrar = ViewData["FiltroNombre"] }))
+</div>

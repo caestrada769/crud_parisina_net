@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CrudParisina.Models;
+using X.PagedList;
 
 namespace CrudParisina.Controllers
 {
@@ -19,11 +20,35 @@ namespace CrudParisina.Controllers
         }
 
         // GET: Categorias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, string filtro, int? page)
         {
-              return _context.Categorias != null ? 
-                          View(await _context.Categorias.ToListAsync()) :
-                          Problem("Entity set 'ParisinaNetContext.Categorias'  is null.");
+            var categorias = from Categoria in _context.Categorias select Categoria;
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                categorias = categorias.Where(s => s.NombreCategoria!.Contains(buscar));
+            }
+            ViewData["FiltroNombre"] = String.IsNullOrEmpty(filtro) ? "NombreDescendente" : "";
+            switch (filtro)
+            {
+                case "NombreDescendente":
+                    categorias = categorias.OrderByDescending(categoria => categoria.NombreCategoria);
+                    break;
+                default:
+                    categorias = categorias.OrderBy(categoria => categoria.NombreCategoria);
+                    break;
+            }
+            int pageSize = 3; // Tamaño de página
+            int pageNumber = (page ?? 1); // Número de página actual, predeterminado a 1 si no se proporciona
+
+            // Pagina los resultados y envía un objeto IPagedList a la vista
+            var pagedCategorias = await categorias.ToPagedListAsync(pageNumber, pageSize);
+
+            ViewData["Buscar"] = buscar;
+            ViewData["Page"] = pageNumber;
+
+            //Retornamos la lista de productos encontrados
+            return View(pagedCategorias);
         }
 
         // GET: Categorias/Details/5

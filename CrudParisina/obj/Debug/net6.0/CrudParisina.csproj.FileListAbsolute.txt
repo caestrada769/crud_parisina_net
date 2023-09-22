@@ -265,3 +265,16 @@ C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\
 C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\JetBrains.Annotations.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\X.PagedList.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\obj\Debug\net6.0\CrudParisina.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\X.PagedList.Mvc.dll
+C:\Users\Cristian\Documents\Desarrollo .NET\CrudParisina\CrudParisina\bin\Debug\net6.0\X.PagedList.Web.Common.dll

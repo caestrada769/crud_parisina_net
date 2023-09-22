@@ -1,59 +1,82 @@
-﻿@model IEnumerable<CrudParisina.Models.Empleado>
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<CrudParisina.Models.Empleado>
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Empleados</h1>
+    <hr style="color: #a48004" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="m-0">
+            <a asp-action="Create" class="btn btn-personalizado btn-sm">Crear Empleado</a>
+        </p>
+
+        <form asp-controller="Empleadoes" asp-action="Index" class="m-0">
+            <p class="m-0">
+                Buscar: <input type="text" name="buscar" class="form-text" />
+                <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+            </p>
+        </form>
+    </div>
 <table class="table">
     <thead>
         <tr>
+                <th>
+                    <!-- Enlazamos la columna a ordenar con el ViewData del controller -->
+                    <a asp-action="Index" asp-route-filtro="@ViewData["FiltroNombre"]" class="sortable-link">
+                        Nombre <i class="fa-solid fa-caret-down"></i>
+                    </a>
+                </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.IdArea)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NombreEmpleado)
+                No. Documento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroDocumento)
+                Estado
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoEmpleado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdArea)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.NombreEmpleado)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumeroDocumento)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoEmpleado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.IdUsuario)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdEmpleado">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdEmpleado">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdEmpleado">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+           
+            
+                    <td>
+                        @if (item.EstadoEmpleado == true)
+                        {
+                            <text>Activo</text>
+                        }
+                        else
+                        {
+                            <text>Inactivo</text>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdEmpleado"><img src="~/icons/editar.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Details" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdEmpleado"><img src="~/icons/detalle.png" alt="Mi Icono" width="20" /></a>
+                        <a asp-action="Delete" class="btn btn-personalizado2 btn-sm" asp-route-id="@item.IdEmpleado"><img src="~/icons/eliminar.png" alt="Mi Icono" width="20" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pagination-container align-right">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, buscar = ViewData["Buscar"], filtro = ViewData["FiltroNombre"] }))
+    </div>
+</div>

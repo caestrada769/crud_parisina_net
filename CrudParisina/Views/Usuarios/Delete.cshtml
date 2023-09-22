@@ -3,13 +3,11 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 50%; padding: 20px; background-color: white;">
+<h1>Eliminar</h1>
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Usuario</h4>
-    <hr />
+        <hr style="color: #a48004" />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IdRol)
@@ -27,13 +25,15 @@
             @Html.DisplayNameFor(model => model.EstadoUsuario)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstadoUsuario)
+                @(Model.EstadoUsuario == true ? "Activo" : "Inactivo")
         </dd>
     </dl>
     
     <form asp-action="Delete">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Regresar</a>
         <input type="hidden" asp-for="IdUsuario" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+            <input type="submit" value="Eliminar" class="btn btn-danger btn-sm" />
+
+        </form>
+</div>
 </div>

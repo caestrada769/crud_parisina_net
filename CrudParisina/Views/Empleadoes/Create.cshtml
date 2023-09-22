@@ -4,18 +4,19 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Empleado</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+<div class="container text-center mt-5" style="border: 2px solid #a48004; padding: 20px; border-radius: 10px; max-width: 60%; padding: 20px; background-color: white;">
+    <h1>Crear</h1>
+    <h4>Producto</h4>
+    <hr style="color: #a48004" />
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
                 <label asp-for="IdUsuario" class="control-label"></label>
-                <select asp-for="IdUsuario" class ="form-control" asp-items="ViewBag.IdUsuario"></select>
-            </div>
+                <input asp-for="IdUsuario" class="form-control" />
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label asp-for="IdArea" class="control-label"></label>
                 <input asp-for="IdArea" class="form-control" />
@@ -26,22 +27,23 @@
                 <input asp-for="NombreEmpleado" class="form-control" />
                 <span asp-validation-for="NombreEmpleado" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="NumeroDocumento" class="control-label"></label>
                 <input asp-for="NumeroDocumento" class="form-control" />
                 <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-3">Regresar</a>
+                    <input type="submit" value="Crear" class="btn btn-personalizado btn-sm mb-3" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
